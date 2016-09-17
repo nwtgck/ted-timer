@@ -27,14 +27,22 @@ $(function(){
       input_area.hide();
 
       // 入力された分を取得
-      minute     = parseInt(minute_input.val());
+      timeLimitMinute     = parseInt(minute_input.val());
       // 入力された分の秒にする（時間は秒で管理する）
-      fullSecond = minute * 60;
+      timeLimitSecond = timeLimitMinute * 60;
+
+      // スタートした時間
+      var startTime = new Date();
+
+      console.log("開始時刻", startTime);
 
       function decTime(){
         if(isCounting){
-          // 1秒時間がへる
-          fullSecond--;
+
+          // 経過秒数
+          var passedSecound = Math.floor((new Date() - startTime)/1000);
+          // 経過秒数とタイムリミットから表示すべき秒数を計算
+          var fullSecond    = timeLimitSecond - passedSecound;
 
           if(fullSecond >= 0){ // 経過時間内のとき
             var sec = Math.floor(fullSecond/60);
@@ -46,7 +54,7 @@ $(function(){
           }
           minute_display.text(zeroPad(sec, 2));
           second_display.text(zeroPad(min, 2));
-          setTimeout(decTime, 1000);
+          setTimeout(decTime, 200);
         }
       }
 
