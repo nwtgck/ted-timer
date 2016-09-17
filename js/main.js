@@ -6,9 +6,15 @@ $(function(){
   var minute_display = $("#minute_display");
   var second_display = $("#second_display");
   var min_sec_wrap   = $("#min_sec_wrap");
+  var input_area     = $("#input_area");
 
   // スタートしたかどうか
   var isCounting = false;
+
+  min_sec_wrap.on('click', function(){
+      // 入力する欄やボタンを再表示したり隠したり（トグル）
+    input_area.toggle();
+  });
 
   // スタートボタンイベント
   start_button.on('click', function(){
@@ -16,6 +22,10 @@ $(function(){
       isCounting = true;
       start_button.prop('disabled', true);
       reset_button.prop('disabled', false);
+
+      // 入力する欄やボタンを隠す
+      input_area.hide();
+
       // 入力された分を取得
       minute     = parseInt(minute_input.val());
       // 入力された分の秒にする（時間は秒で管理する）
