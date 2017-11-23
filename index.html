@@ -10,6 +10,15 @@
   <body>
 
     <div ng-controller="timerCtrl">
+
+      <!-- Full screen button -->
+      <div class='full_screen'
+           onclick="toggleFullScreen()"
+           ng-class="{transparent: !showFullScreenIcon, maximize: isMaximize(), minimize: !isMaximize()}"           
+           ng-mouseenter="showFullScreenIcon = true"
+           ng-mouseleave="showFullScreenIcon = false"
+      ></div>
+
       <!-- Display of <minute>:<secound> -->
       <div id="min_sec_wrap" ng-click="showInputForm = !showInputForm" ng-class="{has_passed: hasPassed}">
         {{zeroPad(minuteDisplay,2)}}:{{zeroPad(secondDisplay,2)}}
