@@ -11,11 +11,11 @@
 
     <div ng-controller="timerCtrl">
       <!-- Display of <minute>:<secound> -->
-      <div id="min_sec_wrap" ng-class="{has_passed: hasPassed}">
+      <div id="min_sec_wrap" ng-click="showInputForm = !showInputForm" ng-class="{has_passed: hasPassed}">
         {{zeroPad(minuteDisplay,2)}}:{{zeroPad(secondDisplay,2)}}
       </div>
 
-      <div id='input_area'>
+      <div ng-show="showInputForm">
         <!-- Input of minute -->
         <input type="number" ng-model="inputMinute" placeholder="minute">
         <!-- Start button -->
