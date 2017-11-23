@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="tedTimer">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
-    <script src="js/jquery-3.1.0.min.js"></script>
-    <script src="js/main.js"></script>
-    <title>Timer</title>
+    <script src="js/angular-1.6.6.min.js"></script>
+    <script src="js/main.js"></script>    
+    <title>TED Timer</title>
   </head>
   <body>
 
-    <!-- 「分:秒」の表示 -->
-    <div id="min_sec_wrap">
-      <span id="minute_display">00</span>:<span id="second_display">00</span>
-    </div>
+    <div ng-controller="timerCtrl">
+      <!-- Display of <minute>:<secound> -->
+      <div id="min_sec_wrap" ng-class="{has_passed: hasPassed}">
+        {{zeroPad(minuteDisplay,2)}}:{{zeroPad(secondDisplay,2)}}
+      </div>
 
-    <div id='input_area'>
-      <!-- 分の入力 -->
-      <input type="number" id="minute_input" value="15" placeholder="minute">
-      <!-- タイマーのスタートボタン -->
-      <button id="start_button">Start</button>
-      <!-- タイマーのリセットボタン -->
-      <button id="reset_button">Reset</button>
+      <div id='input_area'>
+        <!-- Input of minute -->
+        <input type="number" ng-model="inputMinute" placeholder="minute">
+        <!-- Start button -->
+        <button ng-click="startCount()" ng-disabled="isCounting">Start</button>
+        <!-- Reset button -->
+        <button ng-click="resetCount()" ng-disabled="!isCounting">Reset</button>
+      </div>
     </div>
 
   </body>
