@@ -1,3 +1,26 @@
+// Toggle full screen
+// (from: https://stackoverflow.com/a/10627148/2885946)
+function toggleFullScreen() {
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if (document.documentElement.requestFullScreen) {  
+      document.documentElement.requestFullScreen();  
+    } else if (document.documentElement.mozRequestFullScreen) {  
+      document.documentElement.mozRequestFullScreen();  
+    } else if (document.documentElement.webkitRequestFullScreen) {  
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+    }  
+  } else {  
+    if (document.cancelFullScreen) {  
+      document.cancelFullScreen();  
+    } else if (document.mozCancelFullScreen) {  
+      document.mozCancelFullScreen();  
+    } else if (document.webkitCancelFullScreen) {  
+      document.webkitCancelFullScreen();  
+    }  
+  }  
+}
+
 angular.module('tedTimer', [])
   .controller('timerCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
     // Countdown is going on or not
@@ -13,6 +36,20 @@ angular.module('tedTimer', [])
 
     // Time has passed
     $scope.hasPassed      = false;
+
+    // Show full screen icon
+    $scope.showFullScreenIcon = true;
+
+    // Full screen is Maximize
+    $scope.isMaximize = () => {
+      const b = (document.fullScreenElement && document.fullScreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen);
+      return b;
+    };
+
+    // Hide full screen icon
+    $timeout(() => {
+      $scope.showFullScreenIcon = false;
+    }, 1000);
 
     $scope.zeroPad = (a, n)=>{
       return ("0"+a).slice(-n);
