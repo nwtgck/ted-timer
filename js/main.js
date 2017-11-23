@@ -4,7 +4,7 @@ angular.module('tedTimer', [])
     $scope.isCounting    = false;
     // Show input form or not
     $scope.showInputForm = true;
-    // Input (min)
+    // Input [min]
     $scope.inputMinute    = 15;
 
     // For display
@@ -23,48 +23,43 @@ angular.module('tedTimer', [])
       $scope.isCounting    = true;
       $scope.showInputForm = false;
 
-        // 入力された分を取得
-        const timeLimitMinute = $scope.inputMinute;
-        // 入力された分の秒にする（時間は秒で管理する）
-        const timeLimitSecond = timeLimitMinute * 60;
+        // Convert input[min] to secounds
+        const timeLimitSecond = $scope.inputMinute * 60;
   
-        // スタートした時間
+        // Get start time
         const startTime = new Date();
   
-        console.log("開始時刻", startTime);
+        console.log("Start Time:", startTime);
   
         (function decTime(){
           if($scope.isCounting){
   
-            // 経過秒数
+            // Passed [sec]
             const passedSecound = Math.floor((new Date() - startTime)/1000);
-            // 経過秒数とタイムリミットから表示すべき秒数を計算
+            // Rest time [sec]
             const fullSecond    = timeLimitSecond - passedSecound;
 
-            // Time has passed or not
+            // Set whether time has passed or not
             $scope.hasPassed     = fullSecond < 0
   
-            if(fullSecond >= 0){ // 経過時間内のとき
-              var sec = Math.floor(fullSecond/60);
-              var min = fullSecond%60;
-            } else {            // 経過時間を超えたとき
-              // min_sec_wrap.css('color', 'red');
-              var sec = Math.floor(-fullSecond/60);
-              var min = -fullSecond%60;
+            if(fullSecond >= 0){ // in time
+              $scope.minuteDisplay = Math.floor(fullSecond/60);
+              $scope.secondDisplay = fullSecond%60;
+            } else {            // over time
+              $scope.minuteDisplay = Math.floor(-fullSecond/60);
+              $scope.secondDisplay = -fullSecond%60;
             }
 
-            $scope.minuteDisplay = sec; // TODO name is strange
-            $scope.secondDisplay = min; // TODO name is strange
-
-            // minute_display.text(zeroPad(sec, 2));
-            // second_display.text(zeroPad(min, 2));
+            // Call decTime() again
             $timeout(() => {
               $scope.$apply(decTime);
             }, 200);
+
           }
         })();
     };
 
+    // Reset countdown
     $scope.resetCount = () => {
       $scope.isCounting     = false;
       $scope.minuteDisplay  = 0;
