@@ -1,14 +1,20 @@
-## これは何？ ##
+# Timer for TED presenter
 
-TEDxAizuwakamatsuで使われるかもしれないカウントタイマー
 
-## 動作ページ ##
+
+Counter timer, which were used at TEDxAizuwakamatsu
 
 https://nwtgck.github.io/ted-timer/
 
-## 仕様 ##
 
-* 指定時間の入力は分単位
-* [start]ボタンでスタートし入力欄は隠れる（時間をクリックすると入力欄は現れる）
-* [rest] ボタンでカウントダウンがとまる（再度スタートできるようになる）
-* 指定時間をすぎると文字が赤くなって、過ぎた時間が表示される（00:00でも音はならない）
+![demo img](demos/demo.gif)
+
+
+## Specifications
+
+* Input unint is minute
+* Click <kbd>Start</kbd> button to start countdown and hide input form
+* Click the counter to show the input form again
+* Click <kbd>Reset</kbd> button to reset and stop the countdown
+* Turn the font color into red when the time has passed (NOTE: no sound at 00:00)
+
